@@ -83,9 +83,53 @@
 			const writer 	= document.getElementById("writer");
 			const content 	= quill.root.innerHTML; //위쪽의 editor객체를 통해서 가져오기
 			
+			// 유효성 검사
+			if(title.value.length <= 0) {
+				alert('제목을 입력하세요.');
+				title.focus();
+				return false; // 아래쪽 소스코드를 수행하지 않음, 함수가 종료됨
+			}
+			
+			if(writer.value.length < 1) {
+				alert('작성자를 입력하세요.');
+				writer.focus();
+				return false; // 함수 종료
+			}
+			
+
 			console.log(title.value);
 			console.log(writer.value);
 			console.log(content);
+			
+			// <form action="write.do" method="post"></form>
+			var form = document.createElement("form");
+			form.action = "write.do";
+			form.method = "post";
+			form.style.display = "none";
+			
+			// <input type="text" name="title" value="실제입력값"></input>
+			var input1 = document.createElement("input");
+			input1.type = "text";
+			input1.name = "title";
+			input1.value = title.value;
+			form.appendChild(input1); // <form action="write.do" method="post">
+										// <input type="text" name="title" value="실제입력값"></input> 
+									 // </form>
+			
+			var input2 = document.createElement("input");
+			input2.type = "text";
+			input2.name = "content";
+			input2.value = content;
+			form.appendChild(input2);
+									 
+			var input3 = document.createElement("input");
+			input3.type = "text";
+			input3.name = "writer";
+			input3.value = writer.value;
+			form.appendChild(input3);
+			
+			document.body.appendChild(form);
+			form.submit();
 		}
 	</script>
 </body>
