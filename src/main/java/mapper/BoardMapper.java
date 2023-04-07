@@ -6,11 +6,21 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import dto.Board;
 
 @Mapper
 public interface BoardMapper {
+	
+	// insert, update, delete => int
+	// select => list, object, int 등 다양함
+	
+	// 조회수 증가(글번호가 오면 해당 글번호 조회수만 1 증가)
+	@Update({
+		" UPDATE BOARD SET hit=hit+1 WHERE no=#{no} "
+	})
+	public int updateBoardHit(@Param("no") long no);
 	
 	// 글쓰기
 	@Insert({" INSERT INTO BOARD (title, content, writer) ",
