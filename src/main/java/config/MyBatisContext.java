@@ -10,6 +10,8 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 import mapper.BoardMapper;
+import mapper.ItemImageMapper;
+import mapper.ItemMapper;
 
 //import mapper.BoardImageMapper;
 //import mapper.BoardMapper;
@@ -45,8 +47,8 @@ public class MyBatisContext {
 			//만든 Mapper 등록
 //			config.addMapper(MemberMapper.class);
 			config.addMapper(BoardMapper.class);
-//			config.addMapper(ItemMapper.class);
-//			config.addMapper(BoardImageMapper.class);
+			config.addMapper(ItemMapper.class);
+			config.addMapper(ItemImageMapper.class);
 			
 			
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(config);			

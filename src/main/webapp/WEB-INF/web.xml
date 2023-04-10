@@ -8,14 +8,5 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>BoardSelectController</display-name>
-    <servlet-name>BoardSelectController</servlet-name>
-    <servlet-class>controller.BoardSelectController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>BoardSelectController</servlet-name>
-    <url-pattern>/BoardSelectController</url-pattern>
-  </servlet-mapping>
+
 </web-app>
