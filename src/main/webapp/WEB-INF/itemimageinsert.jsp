@@ -53,10 +53,87 @@
 			   <input type="button" value="일괄등록" onclick="insertImageBatch()" class="btn btn-primary" />
 	           <a href="select.do" class="btn btn-success">목록으로</a>        
             </form> 
-		</div>            
+            
+            <hr />
+            <c:forEach var="no" items="${imageNo}">
+            	${no} =>
+            	<img src="${pageContext.request.contextPath}/item/image?no=${no}" style="width:100px; height:100px" />
+            	<button class="btn btn-primary" onclick="itemUpdateModal('${no}', '${ino}')">수정</button> 
+            	<button class="btn btn-danger" onclick="itemImageDelete('${no}', '${ino}')">삭제</button>
+            	<br />
+            </c:forEach>
+		</div>
+		
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<form action="imageupdate.do" method="post" enctype="multipart/form-data">
+  				<div class="modal-dialog">
+   	 				<div class="modal-content">
+      					<div class="modal-header">
+        					<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      					</div>
+      					<div class="modal-body">
+        					이미지번호 : <input type="text" name="imageNo" id="modal_image_no" readonly />
+        					현재이미지 : <img src="" style="width:100px; height:100px" id="modal_image_src" />
+        					<input type="hidden" name="ino" value="${ino}" />
+        					변경이미지 : <input type="file" name="file" id="modal_image_file" />     				
+        				</div>
+      					<div class="modal-footer">
+        					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        					<input type="submit" class="btn btn-primary" value="Save changes"/>
+      					</div>
+    				</div>
+  				</div>
+  			</form>
+		</div>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
+	
+		function itemUpdateModal(no, ino) {
+			const imageNo = document.getElementById("modal_image_no");
+			const imageSrc = document.getElementById("modal_image_src");
+			const imageFile = document.getElementById("modal_image_file");
+			
+			imageNo.value = no;
+			imageSrc.src = '${pageContext.request.contextPath}/item/image?no=' + no;
+			
+			const modal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+			modal.show();
+		}
+	
+		function itemImageDelete(no, ino) { // 삭제할 이미지 번호, 물품번호
+			const ret = confirm('삭제할까요?');
+			if(ret === true) {
+				// <form action="imagedelete.do" method="post" style="display:none;">
+				var form = document.createElement("form");
+				form.setAttribute("action", "imagedelete.do");
+				form.setAttribute("method", "post");
+				form.style.display="none";
+				
+				// <input type="hidden" name="imageno" value="삭제할번호" />
+				var input = document.createElement("input");
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "imageno");
+				input.setAttribute("value", Number(no)); // typescript
+				
+				// <input type="hidden" name="imageno" value="삭제할번호" />
+				var input1 = document.createElement("input");
+				input1.setAttribute("type", "hidden");
+				input1.setAttribute("name", "ino");
+				input1.setAttribute("value", Number(ino));
+				
+				// form 태그에 추가
+				form.appendChild(input);
+				form.appendChild(input1);
+				// body에 추가
+				document.body.appendChild(form);
+				// form 전송
+				form.submit();
+			}
+		}
 	//	document.getElementById("아이디"); id가 일치하는 1개 찾기
 	//	document.getElementsByName("name값"); name값이 일치하는 n개 찾기
 	//	document.getElementsByClassName("class값"); class값이 일치하는 n개 찾기
@@ -115,5 +192,8 @@
 			document.getElementById("form").submit();
 		}
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
 </body>
 </html>

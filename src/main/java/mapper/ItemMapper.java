@@ -10,12 +10,18 @@ import org.apache.ibatis.annotations.Update;
 
 import dto.Board;
 import dto.Item;
+import dto.ItemImage;
 
 @Mapper
 public interface ItemMapper {
 	
 	// insert, update, delete => int
 	// select => list, object, int 등 다양함
+	
+	@Select({
+		" SELECT i.* FROM itemimage i WHERE NO=#{no} "
+	})
+	public ItemImage selectItemImageOne(@Param("no") long no); // 이미지 번호
 	
 	// 조회수 증가(글번호가 오면 해당 글번호 조회수만 1 증가)
 	@Update({

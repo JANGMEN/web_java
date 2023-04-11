@@ -2,10 +2,12 @@ package mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import dto.ItemImage;
 
@@ -21,11 +23,23 @@ public interface ItemImageMapper {
 	@Select({
 		" SELECT i.* FROM ItemImage i WHERE NO=#{no} "
 	})
-	public ItemImage selectItemImageOne(@Param("no") long no); // 이미지 번호
+	public ItemImage selectItemImageOne(@Param("no") long no); // 이미지 1개 가져가기
 	
 	@Select({
-		" SELECT i.NO FROM ItemImage i WHERE boardno = #{boardno} ORDER BY no DESC"
+		" SELECT i.NO FROM ItemImage i WHERE itemno = #{itemno} ORDER BY no DESC"
 	})
-	public List<Long> selectItemImageNo(@Param("boardno") long boardno);
+	public List<Long> selectItemImageNo(@Param("itemno") long itemno); // 물품번호를 이용해서 관련된 이미지 전체 이미지번호 반환
+	
+	@Delete({
+		" DELETE FROM itemimage WHERE NO=#{no} "
+	})
+	public int deleteItemImageNo(@Param("no") long no);
+	
+	@Update({
+		" UPDATE itemimage SET filename=#{obj.filename}, filesize=#{obj.filesize}, ",
+		" filetype=#{obj.filetype}, filedata=#{obj.filedata} ",
+		" WHERE ITEMNO=#{obj.itemno} AND NO=#{obj.no} "
+	})
+	public int updateItemImageOne(@Param("obj") ItemImage obj);
 
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import config.MyBatisContext;
 import dto.ItemImage;
@@ -30,8 +31,15 @@ public class ItemImageWriteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 1. 주소창의 물품번호 가져오기
 		String ino = request.getParameter("ino");
 		request.setAttribute("ino", ino);
+		
+		// 2. 물품번호에 해당하는 이미지 번호들
+		List<Long> imageNo = MyBatisContext.getSqlSession().getMapper(ItemImageMapper.class).selectItemImageNo(Long.parseLong(ino));
+		request.setAttribute("imageNo", imageNo);
+		
 		request.getRequestDispatcher("/WEB-INF/itemimageinsert.jsp").forward(request, response);
 	}
 

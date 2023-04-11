@@ -12,6 +12,7 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import mapper.BoardMapper;
 import mapper.ItemImageMapper;
 import mapper.ItemMapper;
+import mapper.MemberMapper;
 
 //import mapper.BoardImageMapper;
 //import mapper.BoardMapper;
@@ -45,7 +46,7 @@ public class MyBatisContext {
 			Configuration config = new Configuration(environment);
 			
 			//만든 Mapper 등록
-//			config.addMapper(MemberMapper.class);
+			config.addMapper(MemberMapper.class);
 			config.addMapper(BoardMapper.class);
 			config.addMapper(ItemMapper.class);
 			config.addMapper(ItemImageMapper.class);
