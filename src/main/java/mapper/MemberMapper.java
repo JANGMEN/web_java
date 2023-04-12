@@ -19,8 +19,8 @@ public interface MemberMapper {
 
 	// 회원가입
 	@Insert({
-		" INSERT INTO member(id, password, name, age) ",
-		" VALUES ( #{obj.id}, #{obj.password}, #{obj.name}, #{obj.age} ) "
+		" INSERT INTO member(id, password, name, age, role) ",
+		" VALUES ( #{obj.id}, #{obj.password}, #{obj.name}, #{obj.age}, #{obj.role} ) "
 	})
 	public int insertMemberOne(@Param("obj") Member obj);
 	

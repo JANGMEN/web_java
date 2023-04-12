@@ -8,14 +8,5 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>RestMemberIDCheckController</display-name>
-    <servlet-name>RestMemberIDCheckController</servlet-name>
-    <servlet-class>controller.RestMemberIDCheckController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>RestMemberIDCheckController</servlet-name>
-    <url-pattern>/RestMemberIDCheckController</url-pattern>
-  </servlet-mapping>
+
 </web-app>

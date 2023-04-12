@@ -12,14 +12,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mapper.MemberMapper;
 
-@WebServlet(urlPatterns = {"/customer/join.do"})
-public class CustomerJoin extends HttpServlet {
+@WebServlet(urlPatterns = {"/customer/home.do"})
+public class CustomerHomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerJoin() {
+    public CustomerHomeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class CustomerJoin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/customer_join.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/customer_home.jsp").forward(request, response);
 	}
 
 	/**

@@ -21,7 +21,16 @@ import mapper.MemberMapper;
 
 public class MyBatisContext {
 	
+	// 정적 객체 생성
+	private static SqlSession sqlSession;
+	
+	// controller에서 사용할 객체 반환
 	public static SqlSession getSqlSession() {
+		return sqlSession;
+	}
+	
+	// 최초 1번만 생성
+	static {
 		try {
 			//DB접속용 dataSource 객체 생성
 			
@@ -37,7 +46,7 @@ public class MyBatisContext {
 			// h2 테스트용 database
 			dataSource.setDriverClassName("org.h2.Driver");
 			//@서버주소:포트번호:SID
-			dataSource.setUrl("jdbc:h2:tcp://1.234.5.158:31521/ds216;Mode=Oracle");
+			dataSource.setUrl("jdbc:h2:tcp://1.234.5.158:41521/ds216;Mode=Oracle");
 			dataSource.setUsername("sa");
 			dataSource.setPassword("");
 			
@@ -53,11 +62,10 @@ public class MyBatisContext {
 			
 			
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(config);			
-			return factory.openSession(true); //true면 자동으로 commit 수행			
+			sqlSession =  factory.openSession(true); //true면 자동으로 commit 수행			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 
