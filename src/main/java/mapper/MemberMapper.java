@@ -10,6 +10,11 @@ import dto.Member;
 
 public interface MemberMapper {
 	
+	@Select({
+		" SELECT m.name, m.age FROM member m WHERE ID = #{id} "
+	})
+	public Member selectMemberOne(@Param("id") String id);
+	
 	// 아이디 중복확인
 	@Select({
 		" SELECT COUNT(*) cnt FROM member m WHERE ID=#{id} "

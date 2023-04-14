@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import dto.Board;
 import dto.Item;
 import dto.ItemImage;
 
@@ -17,6 +16,11 @@ public interface ItemMapper {
 	
 	// insert, update, delete => int
 	// select => list, object, int 등 다양함
+	
+	@Select({
+		" SELECT i.* FROM item i WHERE no=#{no} "
+	})
+	public Item selectItemOne(@Param("no") long no);
 	
 	@Select({
 		" SELECT i.* FROM itemimage i WHERE NO=#{no} "

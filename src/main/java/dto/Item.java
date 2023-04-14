@@ -22,5 +22,7 @@ public class Item {
 	private long price; // 조회수
 	private long quantity;
 	private Date regdate; // 작성일자
+	
+	private long imageNo; // 대표 이미지 번호를 저장할 임시변수
 
 }

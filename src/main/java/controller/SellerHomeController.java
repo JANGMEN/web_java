@@ -10,17 +10,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import mapper.MemberMapper;
 
-@WebServlet(urlPatterns = {"/customer/login.do"})
-public class CustomerLoginController extends HttpServlet {
+@WebServlet(urlPatterns = {"/seller/home.do"})
+public class SellerHomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerLoginController() {
+    public SellerHomeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,43 +28,36 @@ public class CustomerLoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/customer_login.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/seller_home.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
 		String hashPw = Hash.hashPW(request.getParameter("id"), request.getParameter("pw"));
 		// 전송되는 4개 값 받기
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String age = request.getParameter("age");
+		// 객체생성 role => CUSTOMER
+		
+		// mapper를 이용해서 추가
 		Member obj = new Member();
 		obj.setId(id);
 		obj.setPassword(hashPw);
+		obj.setName(name);
+		obj.setAge(Integer.parseInt(age));
+		//obj.setRole("CUSTOMER");
 		
-		Member ret = MyBatisContext.getSqlSession().getMapper(MemberMapper.class).selectMemberLogin(obj);
-		
-		if(ret != null) {
-			// 세션에 기록하기. 기본시간 30분
-			HttpSession httpSession = request.getSession();
-			httpSession.setAttribute("id", ret.getId());
-			httpSession.setAttribute("role", ret.getRole());
-			httpSession.setAttribute("name", ret.getName());
-			
-			String url = (String) httpSession.getAttribute("url");
-			System.out.println("login.do => " + url);
-			if(url == null) {
-				response.sendRedirect("home.do");
-			}
-			else {
-				// 마지막 페이지로 이동
-				response.sendRedirect(url);
-			}
-			return; // 메소드 종료
-			
-			
+		int ret = MyBatisContext.getSqlSession().getMapper(MemberMapper.class).insertMemberOne(obj);
+		if(ret == 1) {
+			// 127.0.0.1:8080/web04/customer/home.do
+			response.sendRedirect("home.do");
 		}
-		response.sendRedirect(request.getContextPath() + "/customer/login.do");
+		else {
+			response.sendRedirect(request.getContextPath() + "/customer/join.do");
+		}
 	}
 
 }

@@ -14,6 +14,12 @@ import dto.ItemImage;
 @Mapper
 public interface ItemImageMapper {
 	
+	// 물품번호를 받아서 해당하는 이미지 1개 반환, 없으면 0 반환
+	@Select({
+		" SELECT NVL(min(no), 0) FROM itemimage WHERE itemno = #{itemno} "
+	})
+	public long selectItemImageMinOne(@Param("itemno") long itemno);
+	
 	@Insert({
 		" INSERT INTO ITEMIMAGE(filename, filetype, filesize, filedata, itemno) ",
 		" VALUES (#{obj.filename}, #{obj.filetype}, #{obj.filesize}, #{obj.filedata}, #{obj.itemno}) "
