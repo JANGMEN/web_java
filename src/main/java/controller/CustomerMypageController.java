@@ -1,18 +1,19 @@
 package controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import config.Hash;
+import config.MyBatisContext;
+import dto.Member;
+import dto.PurchaseView;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import mapper.MemberMapper;
-
-import java.io.IOException;
-
-import config.Hash;
-import config.MyBatisContext;
-import dto.Member;
+import mapper.PurchaseMapper;
 
 @WebServlet("/customer/mypage.do")
 public class CustomerMypageController extends HttpServlet {
@@ -45,10 +46,22 @@ public class CustomerMypageController extends HttpServlet {
 				request.setAttribute("obj", obj);
 			}
 			
-			if(Integer.parseInt(menu) == 2) {
+			else if(Integer.parseInt(menu) == 2) {
 				Member obj = MyBatisContext.getSqlSession().getMapper(MemberMapper.class).selectMemberOne(id);
 				request.setAttribute("obj", obj);
 			}
+			else if(Integer.parseInt(menu) == 3) {
+				
+			}
+			else if(Integer.parseInt(menu) == 4) {
+				// 주문내역 가져오기
+				List<PurchaseView> list = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).selectPurchaseViewMember(id);
+				System.out.println(list.toString());
+				request.setAttribute("list", list);
+			}
+			
+			
+			
 			request.getRequestDispatcher("/WEB-INF/customer_mypage.jsp").forward(request, response);
 	}
 

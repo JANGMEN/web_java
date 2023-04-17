@@ -8,44 +8,5 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>CustomerMypageController</display-name>
-    <servlet-name>CustomerMypageController</servlet-name>
-    <servlet-class>controller.CustomerMypageController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CustomerMypageController</servlet-name>
-    <url-pattern>/CustomerMypageController</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ProductController</display-name>
-    <servlet-name>ProductController</servlet-name>
-    <servlet-class>controller.ProductController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ProductController</servlet-name>
-    <url-pattern>/ProductController</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>CustomerProductController</display-name>
-    <servlet-name>CustomerProductController</servlet-name>
-    <servlet-class>controller.CustomerProductController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CustomerProductController</servlet-name>
-    <url-pattern>/CustomerProductController</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>UrlFilter</display-name>
-    <servlet-name>UrlFilter</servlet-name>
-    <servlet-class>filter.UrlFilter</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UrlFilter</servlet-name>
-    <url-pattern>/UrlFilter</url-pattern>
-  </servlet-mapping>
+
 </web-app>

@@ -13,6 +13,7 @@ import mapper.BoardMapper;
 import mapper.ItemImageMapper;
 import mapper.ItemMapper;
 import mapper.MemberMapper;
+import mapper.PurchaseMapper;
 
 //import mapper.BoardImageMapper;
 //import mapper.BoardMapper;
@@ -59,6 +60,7 @@ public class MyBatisContext {
 			config.addMapper(BoardMapper.class);
 			config.addMapper(ItemMapper.class);
 			config.addMapper(ItemImageMapper.class);
+			config.addMapper(PurchaseMapper.class);
 			
 			
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(config);			

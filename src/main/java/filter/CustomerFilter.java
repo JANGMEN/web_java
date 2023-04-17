@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 // 127.0.0.1:8080/web04/customer/home.do
 // 로그인을 해야되는 페이지 체크용
-@WebFilter(urlPatterns = {"/customer/mypage.do", "/customer/orderlist.do", "/customer/purchase.do"})
+@WebFilter(urlPatterns = {"/customer/mypage.do", "/customer/orderlist.do", "/customer/purchase.do", "/customer/deletepurchase.do"})
 public class CustomerFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2) throws IOException, ServletException{

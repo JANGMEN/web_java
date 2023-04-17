@@ -39,12 +39,20 @@ public class CustomerPurchaseController extends HttpServlet {
 		// DB에 추가하기
 		Long itemno = Long.parseLong(request.getParameter("itemno"));
 		Long cnt = Long.parseLong(request.getParameter("cnt"));
+		String id = (String) request.getSession().getAttribute("id");
 		
 		Purchase obj = new Purchase();
 		obj.setItemno(itemno);
 		obj.setCnt(cnt);
-		obj.setCustomerid(LEGACY_DO_HEAD);
-		response.sendRedirect("purchase.do");
+		obj.setCustomerid(id);
+		
+		int ret = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).insertPurchaseOne(obj);
+		
+		if(ret == 1) {
+			response.sendRedirect("mypage.do?menu=4");
+			return;
+		}
+		response.sendRedirect("product.do?itemno="+itemno);
 	}
 
 }

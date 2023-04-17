@@ -1,7 +1,9 @@
 package mapper;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -31,5 +33,22 @@ public interface PurchaseMapper {
 		" SELECT pv.* FROM purchaseview pv WHERE customerid = #{id} "
 	})
 	public List<PurchaseView> selectPurchaseViewMember(@Param("id") String id);
+	
+	@Delete({
+		"<script>",
+		" DELETE FROM purchase WHERE customerid=#{map.id} AND no IN( ",
+			"<foreach collection='map.chk' item='tmp' separator=','>",
+				"#{tmp}",
+			"</foreach>",
+		") ",
+		"</script>"
+	})
+	// DELETE FROM 테이블명 WHERE customerid='a' AND no(1, 2, 3, 4);
+	public int deletePurchase(@Param("map") Map<String, Object> map);
+	
+	@Select({
+		" SELECT customerid, SUM(cnt) cnt FROM purchase GROUP BY customerid "
+	})
+	public List<Map<String, Object>> selectMemberGroup();
 
 }

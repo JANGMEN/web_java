@@ -20,6 +20,9 @@
        		</li>
        		<li class="nav-item p-2">
        			<a href="${pageContext.request.contextPath}/item/select.do" class="btn btn-primary">물품관리</a>
+       		</li>
+       		<li class="nav-item p-2">
+       			<a href="${pageContext.request.contextPath}/purchase/select.do" class="btn btn-primary">주문관리</a>
        		</li>		
       	</ul>
        <hr />          
