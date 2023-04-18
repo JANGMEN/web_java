@@ -5,6 +5,7 @@ import java.util.List;
 
 import config.Hash;
 import config.MyBatisContext;
+import dto.Address;
 import dto.Member;
 import dto.PurchaseView;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mapper.AddressMapper;
 import mapper.MemberMapper;
 import mapper.PurchaseMapper;
 
@@ -57,6 +59,11 @@ public class CustomerMypageController extends HttpServlet {
 				// 주문내역 가져오기
 				List<PurchaseView> list = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).selectPurchaseViewMember(id);
 				System.out.println(list.toString());
+				request.setAttribute("list", list);
+			}
+			
+			else if(Integer.parseInt(menu) == 5) {
+				List<Address> list = MyBatisContext.getSqlSession().getMapper(AddressMapper.class).selectAddressList(id);
 				request.setAttribute("list", list);
 			}
 			
@@ -110,6 +117,7 @@ public class CustomerMypageController extends HttpServlet {
 			}
 			
 		}
+		
 		
 	}
 
