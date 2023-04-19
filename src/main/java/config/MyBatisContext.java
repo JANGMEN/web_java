@@ -11,6 +11,7 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 import mapper.AddressMapper;
 import mapper.BoardMapper;
+import mapper.BookMapper;
 import mapper.ItemImageMapper;
 import mapper.ItemMapper;
 import mapper.MemberMapper;
@@ -63,6 +64,7 @@ public class MyBatisContext {
 			config.addMapper(ItemImageMapper.class);
 			config.addMapper(PurchaseMapper.class);
 			config.addMapper(AddressMapper.class);
+			config.addMapper(BookMapper.class);
 			
 			
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(config);			
